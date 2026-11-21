@@ -66,7 +66,21 @@
       display: flex;
       justify-content: center;
       width: 100%;
-      overflow: hidden
+      overflow: hidden;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .hero.hero-enter-init {
+      opacity: 0;
+      transform: translateY(24px) scale(0.96);
+    }
+
+    .hero.hero-enter-active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
 
     .art-wrap {
@@ -96,6 +110,22 @@
       line-height: 1.02;
       padding: 2px;
       color: #701b25;
+      border-radius: 4px;
+      /* box-shadow: 0 4px 15px rgba(0,0,0,0.25); */
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, box-shadow 0.7s ease 0.2s;
+      will-change: opacity, transform;
+    }
+
+    .hero.hero-enter-init .name-plaque {
+      opacity: 0;
+      transform: scale(0.88);
+      box-shadow: 0 0 0 rgba(255, 215, 0, 0);
+    }
+
+    .hero.hero-enter-active .name-plaque {
+      opacity: 1;
+      transform: scale(1);
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.55), 0 4px 15px rgba(0, 0, 0, 0.25);
     }
 
     .name-plaque .bride {
@@ -122,7 +152,18 @@
 
     .invite-content {
       background: linear-gradient(180deg, #b31219 0, #8f1018 100%);
-      padding: clamp(2.5rem, 7vw, 5rem) 1rem 4rem
+      padding: clamp(2.5rem, 7vw, 5rem) 1rem 4rem;
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+    }
+
+    .invite-content.invite-enter-init {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .invite-content.invite-enter-active {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .content-card {
@@ -221,12 +262,51 @@
     }
 
 
+.audio-player {
+  --player-button-width: 3em;
+  --sound-button-width: 2em;
+  --space: .5em;
+  width: 15rem;
+  height: 15rem;
+}
+#audio-container{
+  width: 100px;
+  height:100px
+}
 
 
-    /* envelop */
 
+
+.audio-icon {
+   width: 90%;
+   height: 90%;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.player-button {
+  background-color: transparent;
+  border: 0;
+  width: var(--player-button-width);
+  height: var(--player-button-width);
+  cursor: pointer;
+  padding: 0;
+}
+
+    /* =========================================================
+       ENVELOPE OPENING ANIMATION (KEEPING ORIGINAL ENVELOPE IMAGE)
+       ========================================================= */
 
     .invitation-wrapper {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
       width: 100%;
       height: 100svh;
       height: 100dvh;
@@ -234,26 +314,254 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      background: #a90f1b;
+      background: radial-gradient(ellipse at center, #99131a 0%, #680b12 60%, #3e0407 100%);
+      transition: opacity 0.75s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0.75s;
     }
 
-    #openInvitation {
+    .invitation-wrapper.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .envelope-holder {
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.75s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.7s ease;
+      animation: envelope-gentle-breathe 4s ease-in-out infinite alternate;
+      border-radius: 8px;
+    }
+
+    @keyframes envelope-gentle-breathe {
+      0% {
+        transform: scale(1);
+      }
+
+      100% {
+        transform: scale(1.015);
+      }
+    }
+
+    /* Mobile: portrait envelope sizing */
+    @media (max-width: 767px) {
+      .envelope-holder {
+        width: auto;
+        height: min(90dvh, 760px);
+        max-width: 95vw;
+        aspect-ratio: 941 / 1672;
+        filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.55));
+      }
+    }
+
+    /* Desktop: landscape envelope sizing */
+    @media (min-width: 768px) {
+      .name-plaque {
+        position: absolute;
+        left: 12.5%;
+        top: 21.5%;
+        width: 24%;
+        height: 17.4%;
+      }
+
+      .envelope-holder {
+        width: min(88vw, 920px);
+        height: auto;
+        max-height: 86dvh;
+        aspect-ratio: 1536 / 1024;
+        filter: drop-shadow(0 25px 55px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 35px rgba(233, 182, 77, 0.25));
+      }
+    }
+
+    .envelope-picture {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .envelope-img {
       display: block;
       width: 100%;
       height: 100%;
       object-fit: contain;
       object-position: center;
+      border-radius: 6px;
+    }
+
+    /* Seal Glow Spot */
+    .seal-glow-spot {
+      position: absolute;
+      left: 50%;
+      width: 65px;
+      height: 65px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 225, 120, 0.85) 0%, rgba(233, 182, 77, 0.45) 45%, rgba(255, 165, 0, 0) 75%);
+      pointer-events: none;
+      z-index: 6;
+      animation: seal-soft-pulse 2.2s infinite ease-in-out;
+    }
+
+    @media (max-width: 767px) {
+      .seal-glow-spot {
+        top: 53.5%;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .seal-glow-spot {
+        top: 55%;
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    @keyframes seal-soft-pulse {
+
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(0.92);
+        opacity: 0.65;
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.35);
+        opacity: 1;
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+      }
+    }
+
+    @keyframes seal-burst {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.9;
+      }
+
+      40% {
+        transform: translate(-50%, -50%) scale(2.2);
+        opacity: 1;
+        filter: drop-shadow(0 0 25px #ffd700);
+      }
+
+      100% {
+        transform: translate(-50%, -50%) scale(3.8);
+        opacity: 0;
+      }
+    }
+
+    /* Tap Hint Button */
+    .tap-hint {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 246, 230, 0.96);
+      border: 1.5px solid #d4af37;
+      color: #641b25;
+      padding: 9px 24px;
+      border-radius: 50px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45), 0 2px 10px rgba(233, 182, 77, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      z-index: 10;
+      font-size: 0.95rem;
+      font-weight: 600;
+      white-space: nowrap;
+      animation: hint-bob 2.5s ease-in-out infinite alternate;
+      transition: opacity 0.35s ease, transform 0.35s ease, background 0.2s ease;
+    }
+
+    .tap-hint:hover {
+      background: #ffffff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 18px rgba(233, 182, 77, 0.5);
+    }
+
+    .tap-hint .hint-icon {
+      color: #931219;
+      font-size: 1.15rem;
+    }
+
+    @keyframes hint-bob {
+      0% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      100% {
+        transform: translateX(-50%) translateY(-7px);
+      }
+    }
+
+    /* Opening Active States */
+    .invitation-wrapper.is-opening .envelope-holder {
+      animation: none;
+      transform: scale(1.06) translateY(-8px);
+      opacity: 0;
+      filter: blur(3px);
+      pointer-events: none;
+    }
+
+    .invitation-wrapper.is-opening .seal-glow-spot {
+      animation: seal-burst 0.75s forwards ease-out;
+    }
+
+    .invitation-wrapper.is-opening .tap-hint {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.85);
+      pointer-events: none;
+    }
+
+    /* Falling celebratory petals on reveal */
+    .wedding-petals {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9000;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      top: -10%;
+      border-radius: 50% 0 50% 50%;
+      opacity: 0.85;
+      animation: fall 3.5s linear forwards, sway 2.5s ease-in-out infinite alternate;
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+
+      .envelope-holder,
+      .tap-hint,
+      .seal-glow-spot,
+      .hero,
+      .name-plaque,
+      .invite-content,
+      .wedding-petals {
+        animation: none !important;
+        transition: opacity 0.35s ease !important;
+        transform: none !important;
+      }
     }
 
 
     @media(max-width:480px) {
 
-      /* .name-plaque{left:17.5%;top:25.5%;width:23%;height:18.4%} */
+      /* .name-plaque {
+        left: 17.5%;
+        top: 25.5%;
+        width: 23%;
+        height: 18.4%;
+      } */
       .name-plaque {
         left: 12.5%;
-        top: 22.5%;
+        top: 20.5%;
         width: 24%;
-        height: 19.4%;
+        height: 22.4%;
       }
 
       .name-plaque .bride,
@@ -324,8 +632,24 @@
 </head>
 
 <body>
-  <div class="invitation-wrapper"><img id="openInvitation" src="./evelop_mb.png"
-      alt="Traditional Bengali wedding artwork with bride, groom, banana leaves and ceremonial motifs"></div>
+  <div class="invitation-wrapper" id="invitationWrapper">
+    <div class="envelope-holder" id="openInvitation" role="button" tabindex="0"
+      aria-label="Open wedding invitation envelope">
+      <!-- Responsive Envelope Artwork using user's exact assets -->
+      <picture class="envelope-picture">
+        <source media="(min-width: 768px)" srcset="./envelop-updated.png">
+        <img class="envelope-img" src="./evelop_mb.png" alt="Sanskriti & Arjun Wedding Invitation Envelope">
+      </picture>
+
+      <!-- Seal Glow Effect at the center seal -->
+      <div class="seal-glow-spot" aria-hidden="true"></div>
+
+      <!-- Tap to Open Hint -->
+      <div class="tap-hint" id="tapHint">
+        <span class="hint-text">Tap to Open | চিঠি খুলুন</span>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -469,47 +793,138 @@
       <div class="rule">❀ ❀ ❀</div>
 
     </section>
+    <div id="audio-container"><div class="audio-player">
     <audio controls id="invitationMusic">
       <source src="music.mp3" type="audio/mpeg">
       <source src="music.ogg" type="audio/ogg">
       Your browser does not support the audio element.
-    </audio>
+    </audio></div></div>
   </main>
   <script>
     (() => {
-      const button = document.getElementById('openInvitation');
+      const wrapper = document.getElementById('invitationWrapper');
+      const trigger = document.getElementById('openInvitation');
+      const audio = document.getElementById('invitationMusic');
+      const hero = document.getElementById('header_content');
+      const content = document.getElementById('invite-content');
       let opened = false;
+
+      function spawnPetals() {
+        const container = document.createElement('div');
+        container.className = 'wedding-petals';
+        container.id = 'weddingPetals';
+        container.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(container);
+
+        const colors = ['#f4a825', '#e9b64d', '#b31219', '#ffd700', '#f9822a'];
+        const count = 18;
+
+        for (let i = 0; i < count; i++) {
+          const petal = document.createElement('div');
+          petal.className = 'petal';
+          const size = 10 + Math.random() * 14;
+          petal.style.width = size + 'px';
+          petal.style.height = (size * 1.3) + 'px';
+          petal.style.left = (Math.random() * 100) + 'vw';
+          petal.style.background = colors[Math.floor(Math.random() * colors.length)];
+          petal.style.animationDuration = (2.8 + Math.random() * 2) + 's, ' + (1.8 + Math.random() * 1.5) + 's';
+          petal.style.animationDelay = (Math.random() * 1.2) + 's, ' + (Math.random() * 0.5) + 's';
+          container.appendChild(petal);
+        }
+
+        window.setTimeout(() => {
+          container.style.transition = 'opacity 1s ease';
+          container.style.opacity = '0';
+          window.setTimeout(() => container.remove(), 1000);
+        }, 3600);
+      }
 
       function openInvitation() {
         if (opened) return;
         opened = true;
 
-        // Let the flap animation finish before revealing the invitation page.
-        window.setTimeout(() => {
-          document.getElementsByClassName('invitation-wrapper')[0].classList.add('d-none');
-          document.getElementById('header_content').classList.remove('d-none');;
-          document.getElementById('invite-content').classList.remove('d-none');;
+        // Play festive music immediately on user gesture
+        if (audio) {
+          audio.volume = 0.1;
+          window.setTimeout(() => {
+            audio.play().catch(error => {
+              console.log('Audio playback waiting for gesture:', error);
+            });
 
+          }, 1000);
+        }
+
+        const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion) {
+          if (wrapper) wrapper.classList.add('fade-out');
+          if (hero) hero.classList.remove('d-none');
+          if (content) content.classList.remove('d-none');
           window.scrollTo({ top: 0, behavior: 'instant' });
+          window.setTimeout(() => {
+            if (wrapper) wrapper.classList.add('d-none');
+          }, 350);
+          return;
+        }
 
+        // Trigger opening animation on envelope
+        if (wrapper) wrapper.classList.add('is-opening');
 
-        }, 200);
+        // Reveal hero (bride & groom image) with smooth entrance
+        if (hero) {
+          hero.classList.remove('d-none');
+          hero.classList.add('hero-enter-init');
+        }
+        if (content) {
+          content.classList.remove('d-none');
+          content.classList.add('invite-enter-init');
+        }
+
+        // Force browser layout reflow before triggering entrance transition
+        if (hero) void hero.offsetHeight;
+
+        // At 120ms, start the smooth entrance of bride & groom artwork and invite content
         window.setTimeout(() => {
+          if (hero) hero.classList.add('hero-enter-active');
+          if (content) content.classList.add('invite-enter-active');
+          spawnPetals();
+        }, 120);
 
-          const audio = document.getElementById('invitationMusic');
-audio.volume = 0.1
-          audio.play().catch(error => {
-            console.log('Music playback failed:', error);
-          });
-        }, 400);
+        // At 380ms, fade out the envelope overlay
+        window.setTimeout(() => {
+          if (wrapper) wrapper.classList.add('fade-out');
+          window.scrollTo({ top: 0, behavior: 'instant' });
+        }, 380);
 
+        // At 950ms, safely hide envelope wrapper completely and clean up classes
+        window.setTimeout(() => {
+          if (wrapper) wrapper.classList.add('d-none');
+          if (hero) {
+            hero.classList.remove('hero-enter-init', 'hero-enter-active');
+          }
+          if (content) {
+            content.classList.remove('invite-enter-init', 'invite-enter-active');
+          }
+        }, 950);
       }
 
-      button.addEventListener('click', (event) => {
-        // event.preventDefault();
-        openInvitation();
+      if (trigger) {
+        trigger.addEventListener('click', openInvitation);
+        trigger.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openInvitation();
+          }
+        });
+      }
 
-      });
+      // Allow automated preview / test of opening animation
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('autoOpen') === 'true') {
+          openInvitation();
+        }
+      } catch (e) { }
     })();
   </script>
 </body>
