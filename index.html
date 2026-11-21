@@ -269,10 +269,7 @@
   width: 15rem;
   height: 15rem;
 }
-#audio-container{
-  width: 100px;
-  height:100px
-}
+ 
 
 
 
@@ -628,6 +625,465 @@
         }
       }
     }
+
+    /* ========================================================
+       Royal Bengali Wedding Audio Player & Play/Pause Controls
+       ======================================================== */
+    /* In-Card Audio Player */
+    #audio-container {
+      margin: 25px auto 10px;
+      padding: 0 10px;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .audio-player-card {
+      width: 100%;
+      max-width: 520px;
+      background: linear-gradient(135deg, rgba(255, 244, 223, 0.95) 0%, rgba(254, 238, 203, 0.9) 100%);
+      border: 1.5px solid #d4af37;
+      border-radius: 20px;
+      padding: 14px 20px;
+      box-shadow: 0 6px 20px rgba(100, 27, 37, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    .audio-player-card:hover {
+      box-shadow: 0 10px 28px rgba(100, 27, 37, 0.18), 0 0 16px rgba(233, 182, 77, 0.35);
+      border-color: #b8860b;
+    }
+
+    /* Primary Circular Play/Pause Button */
+    .audio-btn-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #741722 0%, #47080f 100%);
+      border: 2px solid #ffd700;
+      box-shadow: 0 4px 12px rgba(71, 8, 15, 0.35), 0 0 12px rgba(233, 182, 77, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffd700;
+      cursor: pointer;
+      flex-shrink: 0;
+      outline: none;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background 0.25s ease;
+      padding: 0;
+    }
+
+    .audio-btn-circle:hover {
+      transform: scale(1.08);
+      background: linear-gradient(135deg, #8a1d29 0%, #570a13 100%);
+      box-shadow: 0 6px 18px rgba(71, 8, 15, 0.45), 0 0 18px rgba(255, 215, 0, 0.55);
+      color: #fff4df;
+    }
+
+    .audio-btn-circle:active {
+      transform: scale(0.95);
+    }
+
+    .audio-btn-circle:focus-visible {
+      outline: 3px solid #641b25;
+      outline-offset: 3px;
+    }
+
+    .audio-btn-circle svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+      transition: transform 0.2s ease;
+    }
+
+    .audio-btn-circle .icon-play {
+      margin-left: 2px; /* optical center adjustment */
+    }
+
+    /* Track Info */
+    .audio-meta {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      min-width: 0;
+    }
+
+    .audio-track-title {
+      font-family: "Playfair Display", serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #641b25;
+      line-height: 1.2;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .audio-track-title .bengali-title {
+      font-family: "Noto Serif Bengali", serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #741722;
+      opacity: 0.9;
+    }
+
+    .audio-track-sub {
+      font-family: "Noto Serif Bengali", serif;
+      font-size: 11.5px;
+      color: #8c323d;
+      margin-top: 2px;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Audio Equalizer Dancing Bars */
+    .audio-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 20px;
+      flex-shrink: 0;
+      padding: 0 4px;
+    }
+
+    .audio-bars .bar {
+      width: 3.5px;
+      height: 4px;
+      border-radius: 2px;
+      background: linear-gradient(to top, #c58611, #ffd700);
+      transition: height 0.25s ease, opacity 0.25s ease;
+    }
+
+    .audio-player-card.is-playing .audio-bars .b1 { animation: danceBar1 0.8s ease-in-out infinite alternate; }
+    .audio-player-card.is-playing .audio-bars .b2 { animation: danceBar2 0.65s ease-in-out infinite alternate 0.12s; }
+    .audio-player-card.is-playing .audio-bars .b3 { animation: danceBar3 0.9s ease-in-out infinite alternate 0.24s; }
+    .audio-player-card.is-playing .audio-bars .b4 { animation: danceBar4 0.7s ease-in-out infinite alternate 0.08s; }
+    .audio-player-card.is-playing .audio-bars .b5 { animation: danceBar5 0.85s ease-in-out infinite alternate 0.18s; }
+
+    @keyframes danceBar1 { 0% { height: 4px; } 100% { height: 16px; } }
+    @keyframes danceBar2 { 0% { height: 6px; } 100% { height: 20px; } }
+    @keyframes danceBar3 { 0% { height: 5px; } 100% { height: 18px; } }
+    @keyframes danceBar4 { 0% { height: 3px; } 100% { height: 14px; } }
+    @keyframes danceBar5 { 0% { height: 6px; } 100% { height: 19px; } }
+
+    .audio-player-card.is-paused .audio-bars .bar {
+      animation: none !important;
+      height: 3px !important;
+      opacity: 0.4;
+    }
+
+    /* Status Pill */
+    .audio-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: inherit;
+      flex-shrink: 0;
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      background: rgba(100, 27, 37, 0.06);
+      color: #641b25;
+      transition: all 0.3s ease;
+    }
+
+    .audio-player-card.is-playing .audio-status-badge {
+      background: rgba(78, 124, 50, 0.1);
+      border-color: rgba(78, 124, 50, 0.4);
+      color: #3b6024;
+    }
+
+    .audio-pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #741722;
+      transition: background 0.3s ease;
+    }
+
+    .audio-player-card.is-playing .audio-pulse-dot,
+    .floating-audio-btn.is-playing .audio-pulse-dot {
+      background: #4e7c32;
+      box-shadow: 0 0 6px rgba(78, 124, 50, 0.8);
+      animation: pulseGreenDot 1.4s ease-in-out infinite;
+    }
+
+    @keyframes pulseGreenDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.7); }
+    }
+
+    /* ========================================================
+       Floating Luxury Audio Pill Controller (Sticky corner)
+       ======================================================== */
+    .floating-audio-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.92);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.5s;
+      pointer-events: none;
+    }
+
+    .floating-audio-widget.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .floating-audio-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 16px 6px 8px;
+      background: linear-gradient(135deg, rgba(115, 19, 28, 0.95) 0%, rgba(71, 8, 15, 0.98) 100%);
+      border: 1.5px solid #d4af37;
+      border-radius: 9999px;
+      box-shadow: 
+        inset 0 1px 1px rgba(255, 235, 175, 0.4),
+        0 8px 24px rgba(0, 0, 0, 0.4),
+        0 0 18px rgba(233, 182, 77, 0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #fff4df;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+
+    .floating-audio-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      border-color: #ffd700;
+      box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.5),
+        0 12px 30px rgba(0, 0, 0, 0.5),
+        0 0 25px rgba(233, 182, 77, 0.45);
+    }
+
+    .floating-audio-btn:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .floating-audio-btn:focus-visible {
+      outline: 3px solid #ffd700;
+      outline-offset: 3px;
+    }
+
+    .floating-disc {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffd700 0%, #e9b64d 60%, #996515 100%);
+      border: 1.5px solid #fff2b2;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #641b25;
+    }
+
+    .floating-disc svg {
+      width: 17px;
+      height: 17px;
+      fill: #641b25;
+    }
+
+    .floating-audio-btn.is-playing .floating-disc svg.icon-shehnai {
+      animation: discRotate 8s linear infinite;
+    }
+
+    @keyframes discRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .floating-audio-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      line-height: 1.15;
+    }
+
+    .floating-title {
+      font-family: "Playfair Display", serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: #fff4df;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+    }
+
+    .floating-title .bengali-title {
+      font-family: "Noto Serif Bengali", serif;
+      font-weight: 500;
+      margin-left: 2px;
+    }
+
+    .floating-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      color: rgba(255, 244, 223, 0.7);
+    }
+
+    .floating-audio-btn.is-playing .floating-status {
+      color: #ffd700;
+    }
+
+    .floating-toggle-pill {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(233, 182, 77, 0.18);
+      border: 1px solid rgba(233, 182, 77, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 4px;
+      color: #ffd700;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+    }
+
+    .floating-audio-btn:hover .floating-toggle-pill {
+      background: rgba(233, 182, 77, 0.35);
+      border-color: #ffd700;
+      transform: scale(1.1);
+    }
+
+    .floating-toggle-pill svg {
+      width: 11px;
+      height: 11px;
+      fill: currentColor;
+    }
+
+    /* Responsive adjustments */
+
+.music-player {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99999;
+
+  background: transparent;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+
+  display: flex;
+  align-items: center;
+}
+
+.music-player audio {
+  width: 220px;
+  height: 40px;
+  opacity: 0.75;
+  background: transparent;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .music-player {
+    bottom: 12px;
+    right: 10px;
+  }
+
+  .music-player audio {
+    width: 180px;
+    height: 38px;
+  }
+}
+
+
+
+
+    @media (max-width: 576px) {
+      .audio-player-card {
+        padding: 12px 14px;
+        gap: 12px;
+      }
+      .audio-btn-circle {
+        width: 44px;
+        height: 44px;
+      }
+      .audio-btn-circle svg {
+        width: 18px;
+        height: 18px;
+      }
+      .audio-track-title {
+        font-size: 13px;
+      }
+      .audio-track-title .bengali-title {
+        font-size: 12px;
+      }
+      .audio-track-sub {
+        font-size: 10.5px;
+      }
+      .audio-bars {
+        display: none;
+      }
+      .audio-status-badge {
+        padding: 4px 8px;
+        font-size: 10px;
+      }
+
+      .floating-audio-widget {
+        bottom: 16px;
+        right: 14px;
+      }
+      .floating-audio-btn {
+        padding: 5px 12px 5px 6px;
+        gap: 8px;
+      }
+      .floating-disc {
+        width: 30px;
+        height: 30px;
+      }
+      .floating-disc svg {
+        width: 15px;
+        height: 15px;
+      }
+      .floating-title {
+        font-size: 11.5px;
+      }
+      .floating-status {
+        font-size: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .floating-audio-widget {
+        transition: opacity 0.3s ease !important;
+      }
+      .floating-audio-btn.is-playing .floating-disc svg.icon-shehnai,
+      .is-playing .audio-pulse-dot,
+      .audio-bars .bar {
+        animation: none !important;
+      }
+    }
   </style>
 </head>
 
@@ -793,13 +1249,75 @@
       <div class="rule">❀ ❀ ❀</div>
 
     </section>
-    <div id="audio-container"><div class="audio-player">
-    <audio controls id="invitationMusic">
-      <source src="music.mp3" type="audio/mpeg">
-      <source src="music.ogg" type="audio/ogg">
-      Your browser does not support the audio element.
-    </audio></div></div>
+    <!-- Royal In-Card Audio Player & Controls -->
+    <div class="d-none" id="audio-container">
+      <div class="audio-player-card is-playing" id="cardAudioPlayer">
+        <button type="button" class="audio-btn-circle" id="cardPlayPauseBtn" aria-label="Pause shehnai music" aria-pressed="true" title="Pause / Play Shehnai">
+          <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+          </svg>
+          <svg class="icon-play d-none" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </button>
+
+        <div class="audio-meta">
+          <div class="audio-track-title">
+            <span>Auspicious Shehnai</span>
+            <span class="bengali-title">• সানাই সুর</span>
+          </div>
+          <div class="audio-track-sub">Traditional Bengali Wedding Melodies</div>
+        </div>
+
+        <div class="audio-bars" aria-hidden="true">
+          <span class="bar b1"></span>
+          <span class="bar b2"></span>
+          <span class="bar b3"></span>
+          <span class="bar b4"></span>
+          <span class="bar b5"></span>
+        </div>
+
+        <div class="audio-status-badge" id="cardAudioBadge">
+          <span class="audio-pulse-dot" aria-hidden="true"></span>
+          <span id="cardAudioStatusText">Playing • বাজছে</span>
+        </div>
+      </div>
+      <audio id="invitationMusic" preload="auto" loop style="display:none;">
+        <source src="music.mp3" type="audio/mpeg">
+        <source src="music.ogg" type="audio/ogg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+
+
+      <aside class="floating-audio-widget" id="floatingAudioWidget" aria-label="Wedding Music Control">
+    <button type="button" class="floating-audio-btn is-playing" id="floatingAudioBtn" aria-label="Pause Shehnai music" aria-pressed="true" title="Toggle Shehnai Music">
+      <span class="floating-disc" aria-hidden="true">
+        <svg class="icon-shehnai" viewBox="0 0 24 24">
+          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+      </span>
+      <span class="floating-audio-text">
+        <span class="floating-title">Music <span class="bengali-title">• গান</span></span>
+        <span class="floating-status">
+          <span class="audio-pulse-dot" aria-hidden="true"></span>
+          <span id="floatingAudioStatusText">Playing • বাজছে</span>
+        </span>
+      </span>
+      <span class="floating-toggle-pill" aria-hidden="true">
+        <svg class="floating-icon-pause" viewBox="0 0 24 24">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+        <svg class="floating-icon-play d-none" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </span>
+    </button>
+  </aside>
   </main>
+
+  <!-- Floating Luxury Audio Controller Widget -->
+
   <script>
     (() => {
       const wrapper = document.getElementById('invitationWrapper');
@@ -807,7 +1325,101 @@
       const audio = document.getElementById('invitationMusic');
       const hero = document.getElementById('header_content');
       const content = document.getElementById('invite-content');
+      const cardAudioPlayer = document.getElementById('cardAudioPlayer');
+      const cardPlayPauseBtn = document.getElementById('cardPlayPauseBtn');
+      const floatingAudioWidget = document.getElementById('floatingAudioWidget');
+      const floatingAudioBtn = document.getElementById('floatingAudioBtn');
+      const cardAudioStatusText = document.getElementById('cardAudioStatusText');
+      const floatingAudioStatusText = document.getElementById('floatingAudioStatusText');
       let opened = false;
+
+      function syncAudioUI(isPlaying) {
+        if (cardAudioPlayer) {
+          if (isPlaying) {
+            cardAudioPlayer.classList.remove('is-paused');
+            cardAudioPlayer.classList.add('is-playing');
+          } else {
+            cardAudioPlayer.classList.remove('is-playing');
+            cardAudioPlayer.classList.add('is-paused');
+          }
+        }
+
+        if (cardPlayPauseBtn) {
+          const iconPause = cardPlayPauseBtn.querySelector('.icon-pause');
+          const iconPlay = cardPlayPauseBtn.querySelector('.icon-play');
+          if (isPlaying) {
+            if (iconPause) iconPause.classList.remove('d-none');
+            if (iconPlay) iconPlay.classList.add('d-none');
+            cardPlayPauseBtn.setAttribute('aria-pressed', 'true');
+            cardPlayPauseBtn.setAttribute('aria-label', 'Pause shehnai music');
+          } else {
+            if (iconPause) iconPause.classList.add('d-none');
+            if (iconPlay) iconPlay.classList.remove('d-none');
+            cardPlayPauseBtn.setAttribute('aria-pressed', 'false');
+            cardPlayPauseBtn.setAttribute('aria-label', 'Play shehnai music');
+          }
+        }
+
+        if (floatingAudioBtn) {
+          const fIconPause = floatingAudioBtn.querySelector('.floating-icon-pause');
+          const fIconPlay = floatingAudioBtn.querySelector('.floating-icon-play');
+          if (isPlaying) {
+            floatingAudioBtn.classList.remove('is-paused');
+            floatingAudioBtn.classList.add('is-playing');
+            if (fIconPause) fIconPause.classList.remove('d-none');
+            if (fIconPlay) fIconPlay.classList.add('d-none');
+            floatingAudioBtn.setAttribute('aria-pressed', 'true');
+            floatingAudioBtn.setAttribute('aria-label', 'Pause Shehnai music');
+          } else {
+            floatingAudioBtn.classList.remove('is-playing');
+            floatingAudioBtn.classList.add('is-paused');
+            if (fIconPause) fIconPause.classList.add('d-none');
+            if (fIconPlay) fIconPlay.classList.remove('d-none');
+            floatingAudioBtn.setAttribute('aria-pressed', 'false');
+            floatingAudioBtn.setAttribute('aria-label', 'Play Shehnai music');
+          }
+        }
+
+        if (cardAudioStatusText) {
+          cardAudioStatusText.textContent = isPlaying ? 'Playing • বাজছে' : 'Paused • বন্ধ';
+        }
+        if (floatingAudioStatusText) {
+          floatingAudioStatusText.textContent = isPlaying ? 'Playing • বাজছে' : 'Muted • বন্ধ';
+        }
+      }
+
+      function toggleAudio() {
+        if (!audio) return;
+        if (audio.paused) {
+          audio.play().then(() => {
+            syncAudioUI(true);
+          }).catch(err => {
+            console.log('Audio playback error:', err);
+          });
+        } else {
+          audio.pause();
+          syncAudioUI(false);
+        }
+      }
+
+      if (cardPlayPauseBtn) {
+        cardPlayPauseBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleAudio();
+        });
+      }
+      if (floatingAudioBtn) {
+        floatingAudioBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleAudio();
+        });
+      }
+
+      if (audio) {
+        audio.addEventListener('play', () => syncAudioUI(true));
+        audio.addEventListener('playing', () => syncAudioUI(true));
+        audio.addEventListener('pause', () => syncAudioUI(false));
+      }
 
       function spawnPetals() {
         const container = document.createElement('div');
@@ -845,13 +1457,16 @@
 
         // Play festive music immediately on user gesture
         if (audio) {
-          audio.volume = 0.1;
+          audio.volume = 0.25;
           window.setTimeout(() => {
-            audio.play().catch(error => {
+            audio.play().then(() => {
+              syncAudioUI(true);
+            }).catch(error => {
               console.log('Audio playback waiting for gesture:', error);
+              syncAudioUI(false);
             });
 
-          }, 1000);
+          }, 600);
         }
 
         const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -860,6 +1475,7 @@
           if (wrapper) wrapper.classList.add('fade-out');
           if (hero) hero.classList.remove('d-none');
           if (content) content.classList.remove('d-none');
+          if (floatingAudioWidget) floatingAudioWidget.classList.add('is-visible');
           window.scrollTo({ top: 0, behavior: 'instant' });
           window.setTimeout(() => {
             if (wrapper) wrapper.classList.add('d-none');
@@ -887,6 +1503,7 @@
         window.setTimeout(() => {
           if (hero) hero.classList.add('hero-enter-active');
           if (content) content.classList.add('invite-enter-active');
+          if (floatingAudioWidget) floatingAudioWidget.classList.add('is-visible');
           spawnPetals();
         }, 120);
 
